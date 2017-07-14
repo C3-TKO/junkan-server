@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/C3-TKO/junkan-server#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "latest",
+    "request": "latest",
+    "cheerio": "latest"
   }
 }
