@@ -17,7 +17,6 @@ app.get('/title/:url', function (req, res) {
     };
 
     request(url, function(error, response, html) {
-        // console.log(response);
         if(!error){
             var $ = cheerio.load(html);
             result.title = $('title').text();
@@ -30,9 +29,19 @@ app.get('/title/:url', function (req, res) {
 app.get('/html/:url', function (req, res) {
     var url = decodeURI(req.params.url);
 
-    res.send('Hello World!');
+    let result = {
+        "html": ""
+    };
+
+    request(url, function(error, response, html) {
+        if(!error){
+            result.html = new Buffer(html).toString('base64');
+        }
+
+        res.send(result);
+    });
 });
 
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('Junkan server is running on port 3000!');
 });
