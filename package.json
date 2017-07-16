@@ -20,5 +20,8 @@
     "express": "latest",
     "request": "latest",
     "cheerio": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
