@@ -4,6 +4,7 @@
   "description": "This is an optional server for the junkan web app",
   "main": "index.js",
   "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
