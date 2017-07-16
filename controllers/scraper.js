@@ -1,5 +1,8 @@
 "use strict"
 
+const request = require('request');
+const cheerio = require('cheerio');
+
 exports.get_title = function(req, res) {
     var url = decodeURI(req.params.url);
 

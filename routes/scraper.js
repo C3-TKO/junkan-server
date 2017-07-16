@@ -6,10 +6,11 @@ const router = express.Router();
 // Require controller modules
 const scraper_controller = require('../controllers/scraper');
 
-// Home page route
-router.get('/title', scraper_controller.get_title);
 
-// About page route
-router.get('/html', scraper_controller.get_html);
+router.get('/', function (req, res) {
+    res.send('Scraper home page')
+})
+router.get('/title/:url', scraper_controller.get_title);
+router.get('/html/:url', scraper_controller.get_html);
 
 module.exports = router
