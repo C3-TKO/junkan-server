@@ -1,9 +1,12 @@
-"use strict"
+'use strict'
 
 const request = require('request');
+
 const cheerio = require('cheerio');
 
 exports.get_title = function(req, res) {
+    'use strict'
+
     var url = decodeURI(req.params.url);
 
     let result = {
@@ -21,6 +24,8 @@ exports.get_title = function(req, res) {
 };
 
 exports.get_html = function(req, res) {
+    'use strict'
+
     var url = decodeURI(req.params.url);
 
     let result = {

@@ -1,16 +1,17 @@
-"use strict"
-
 const express = require('express');
+
 const router = express.Router();
 
 // Require controller modules
-const scraper_controller = require('../controllers/scraper');
+const scraperController = require('../controllers/scraper');
 
 
-router.get('/', function (req, res) {
-    res.send('Scraper home page')
-})
-router.get('/title/:url', scraper_controller.get_title);
-router.get('/html/:url', scraper_controller.get_html);
+router.get('/', (req, res) => {
+  res.send('Scraper home page');
+});
 
-module.exports = router
+router.get('/title/:url', scraperController.get_title);
+
+router.get('/html/:url', scraperController.get_html);
+
+module.exports = router;
