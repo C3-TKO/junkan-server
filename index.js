@@ -2,7 +2,7 @@
 
 const express = require('express');
 
-var scraper = require('./routes/scraper');
+var scraper = require('./app/routes/scraper');
 
 const app = express();
 
