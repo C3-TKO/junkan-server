@@ -1,42 +1,34 @@
-'use strict'
-
 const request = require('request');
 
 const cheerio = require('cheerio');
 
-exports.get_title = function(req, res) {
-    'use strict'
+exports.get_title = (req, res) => {
+  const url = decodeURI(req.params.url);
+  const result = {
+    title: '',
+  };
+  request(url, (error, response, html) => {
+    if (!error) {
+      const $ = cheerio.load(html);
+      result.title = $('title').text();
+    }
 
-    var url = decodeURI(req.params.url);
-
-    let result = {
-        "title": ""
-    };
-
-    request(url, function(error, response, html) {
-        if(!error){
-            var $ = cheerio.load(html);
-            result.title = $('title').text();
-        }
-
-        res.send(result);
-    });
+    res.send(result);
+  });
 };
 
-exports.get_html = function(req, res) {
-    'use strict'
+exports.get_html = (req, res) => {
+  const url = decodeURI(req.params.url);
 
-    var url = decodeURI(req.params.url);
+  const result = {
+    html: '',
+  };
 
-    let result = {
-        "html": ""
-    };
+  request(url, (error, response, html) => {
+    if (!error) {
+      result.html = new Buffer(html).toString('base64');
+    }
 
-    request(url, function(error, response, html) {
-        if(!error){
-            result.html = new Buffer(html).toString('base64');
-        }
-
-        res.send(result);
-    });
+    res.send(result);
+  });
 };
