@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint ./app && mocha --timeout 10000",
     "lint": "eslint ./app"
   },
   "repository": {
@@ -24,10 +24,13 @@
     "cheerio": "latest"
   },
   "devDependencies": {
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
+    "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
   }
 }
