@@ -33,3 +33,7 @@ node_modules
 bower_components/
 
 .tmp
+
+# Remove nyc tmp and report dir
+coverage
+.nyc_output
