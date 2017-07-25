@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js",
     "test": "eslint ./app && nyc mocha --timeout 10000",
-    "lint": "eslint ./app"
+    "lint": "eslint ./app",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",
+    "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-config-airbnb-base": "^11.2.0",
