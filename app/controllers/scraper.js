@@ -7,7 +7,7 @@ exports.get_title = (req, res) => {
   const result = {
     title: '',
   };
-  request(url, (error, response, html) => {
+  request.get(url, (error, response, html) => {
     if (!error) {
       const $ = cheerio.load(html);
       result.title = $('title').text();
@@ -24,7 +24,7 @@ exports.get_html = (req, res) => {
     html: '',
   };
 
-  request(url, (error, response, html) => {
+  request.get(url, (error, response, html) => {
     if (!error) {
       result.html = new Buffer(html).toString('base64');
     }
