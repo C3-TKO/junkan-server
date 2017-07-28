@@ -7,16 +7,17 @@ exports.get_title = (req, res) => {
   const result = {
     title: '',
   };
-	requestPromise.get(url)
-		.then(html => {
-			const $ = cheerio.load(html);
-			result.title = $('title').text();
+  requestPromise.get(url)
+    .then((html) => {
+      const $ = cheerio.load(html);
+      result.title = $('title').text();
 
-			res.send(result);
-		})
-		.catch(err => {
-			// Crawling failed...
-		});
+      res.send(result);
+    })
+    .catch((err) => {
+      // Crawling failed...
+      res.send(err);
+    });
 };
 
 exports.get_html = (req, res) => {
@@ -26,13 +27,14 @@ exports.get_html = (req, res) => {
     html: '',
   };
 
-	requestPromise.get(url)
-		.then(html => {
-			result.html = new Buffer(html).toString('base64');
+  requestPromise.get(url)
+    .then((html) => {
+      result.html = new Buffer(html).toString('base64');
 
-			res.send(result);
-		})
-		.catch(err => {
-			// Crawling failed...
-		});
+      res.send(result);
+    })
+    .catch((err) => {
+      // Crawling failed...
+      res.send(err);
+    });
 };
