@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/C3-TKO/junkan-server#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "cheerio": "latest",
     "express": "latest",
     "request": "latest",
-    "cheerio": "latest"
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "chai": "^4.1.0",
@@ -34,6 +36,7 @@
     "eslint-plugin-import": "^2.7.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "nyc": "^11.0.3"
+    "nyc": "^11.0.3",
+    "sinon": "^2.4.1"
   }
 }

@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const server = require('../index');
 const sinon = require('sinon');
 const request = require('request');
-
+const bluebird = require('bluebird');
 const should = chai.should();
 
 chai.use(chaiHttp);
@@ -11,12 +11,16 @@ chai.use(chaiHttp);
 describe('Routes GET/', () => {
 
 	/*
-	beforeEach(function() {
-		this.request = sinon.stub(request, 'request');
+	const fakeScrapedWebiste = bluebird.resolve('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>');
+
+
+	before(function() {
+		const scraperRequestStub = sinon.stub(request, 'get');
+		scraperRequestStub.returns(fakeScrapedWebiste);
 	});
 
-	afterEach(function() {
-		http.request.restore();
+	after(function() {
+		request.get.restore();
 	});
 	*/
 

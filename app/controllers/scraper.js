@@ -1,4 +1,4 @@
-const request = require('request');
+const requestPromise = require('request-promise');
 
 const cheerio = require('cheerio');
 
@@ -7,14 +7,16 @@ exports.get_title = (req, res) => {
   const result = {
     title: '',
   };
-  request.get(url, (error, response, html) => {
-    if (!error) {
-      const $ = cheerio.load(html);
-      result.title = $('title').text();
-    }
+	requestPromise.get(url)
+		.then(html => {
+			const $ = cheerio.load(html);
+			result.title = $('title').text();
 
-    res.send(result);
-  });
+			res.send(result);
+		})
+		.catch(err => {
+			// Crawling failed...
+		});
 };
 
 exports.get_html = (req, res) => {
@@ -24,11 +26,13 @@ exports.get_html = (req, res) => {
     html: '',
   };
 
-  request.get(url, (error, response, html) => {
-    if (!error) {
-      result.html = new Buffer(html).toString('base64');
-    }
+	requestPromise.get(url)
+		.then(html => {
+			result.html = new Buffer(html).toString('base64');
 
-    res.send(result);
-  });
+			res.send(result);
+		})
+		.catch(err => {
+			// Crawling failed...
+		});
 };
