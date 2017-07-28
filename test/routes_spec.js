@@ -2,27 +2,24 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
 const sinon = require('sinon');
-const request = require('request');
+const requestPromise = require('request-promise');
 const bluebird = require('bluebird');
 const should = chai.should();
 
 chai.use(chaiHttp);
 
 describe('Routes GET/', () => {
-
-	/*
-	const fakeScrapedWebiste = bluebird.resolve('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>');
-
+	// Mocking the inner requests of the scaper controller
+	const fakeScrapedWebsite = bluebird.resolve('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>');
 
 	before(function() {
-		const scraperRequestStub = sinon.stub(request, 'get');
-		scraperRequestStub.returns(fakeScrapedWebiste);
+		const scraperRequestStub = sinon.stub(requestPromise, 'get');
+		scraperRequestStub.returns(fakeScrapedWebsite);
 	});
 
 	after(function() {
-		request.get.restore();
+		requestPromise.get.restore();
 	});
-	*/
 
 	describe('/GET /', () => {
 		it('it should GET the homepage of the junkan server', (done) => {

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js",
-    "test": "eslint ./app && nyc mocha --timeout 10000",
+    "test": "nyc mocha --timeout 1000 && eslint ./app",
+    "test-debug": "mocha --inspect --timeout 1000",
     "lint": "eslint ./app",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
