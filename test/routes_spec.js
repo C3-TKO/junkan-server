@@ -1,16 +1,38 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
+const sinon = require('sinon');
+const requestPromise = require('request-promise');
+const bluebird = require('bluebird');
 const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Routes', () => {
+describe('Routes GET/', () => {
+	// Mocking the inner requests of the scaper controller
+	const fakeScrapedWebsite = bluebird.resolve('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>');
 
-	/*
-	 * Test the /GET route
-	 */
-	describe('/GET title', () => {
+	before(function() {
+		const scraperRequestStub = sinon.stub(requestPromise, 'get');
+		scraperRequestStub.returns(fakeScrapedWebsite);
+	});
+
+	after(function() {
+		requestPromise.get.restore();
+	});
+
+	describe('/GET /', () => {
+		it('it should GET the homepage of the junkan server', (done) => {
+			chai.request(server)
+				.get('/')
+				.end((err, res) => {
+					res.should.have.status(200);
+					done();
+				});
+		});
+	});
+
+	describe('/GET /title/:url', () => {
 		it('it should GET the title of a website', (done) => {
 			chai.request(server)
 				.get('/title/https%3A%2F%2Fwww.google.com')
@@ -23,10 +45,7 @@ describe('Routes', () => {
 		});
 	});
 
-	/*
-	 * Test the /GET route
-	 */
-	describe('/GET html', () => {
+	describe('/GET /html/:url', () => {
 		it('it should GET the html code of a website', (done) => {
 			chai.request(server)
 				.get('/html/https%3A%2F%2Fwww.google.com')
