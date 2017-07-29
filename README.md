@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/C3-TKO/junkan-server.svg?branch=master)](https://travis-ci.org/C3-TKO/junkan-server)
+[![Coverage Status](https://coveralls.io/repos/github/C3-TKO/junkan-server/badge.svg)](https://coveralls.io/github/C3-TKO/junkan-server)
+
 # Junkan-Server
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/C3-TKO/junkan-server.svg)](https://greenkeeper.io/)
