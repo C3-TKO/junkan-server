@@ -1,0 +1,77 @@
+swagger: '2.0'
+info:
+  description: |
+    This is the api specification for the [junkan-server](https://github.com/C3-TKO/junkan-server).
+  version: 1.0.0
+  title: Junkan Server
+  contact:
+    email: thomas.kolar@gmail.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+host: petstore.swagger.io
+basePath: /
+tags:
+  - name: scraper
+    description: Everything about junkan website scraper services
+schemes:
+  - http
+  - https
+paths:
+  '/title/{url}':
+    get:
+      tags:
+        - scraper
+      summary: Get title of the html document at given url
+      description: Returns a website's title
+      produces:
+        - application/json
+      parameters:
+        - name: url
+          in: path
+          description: URL of a website
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Title'
+        '400':
+          description: Invalid URL supplied
+        '404':
+          description: URL not found
+  '/html/{url}':
+    get:
+      tags:
+        - scraper
+      summary: Get html code of a website
+      description: Returns a website's html code
+      produces:
+        - application/json
+      parameters:
+        - name: url
+          in: path
+          description: URL of a website
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Code'
+        '400':
+          description: Invalid URL supplied
+        '404':
+          description: URL not found
+definitions:
+  Title:
+    type: object
+    properties:
+      title:
+        type: string
+  Code:
+    type: object
+    properties:
+      code:
+        type: string
