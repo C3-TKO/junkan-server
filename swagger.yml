@@ -27,11 +27,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: url
-          in: path
-          description: URL of a website
-          required: true
-          type: string
+        - $ref: '#/parameters/url'
       responses:
         '200':
           description: successful operation
@@ -50,11 +46,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: url
-          in: path
-          description: URL of a website
-          required: true
-          type: string
+        - $ref: '#/parameters/url'
       responses:
         '200':
           description: successful operation
@@ -75,3 +67,10 @@ definitions:
     properties:
       code:
         type: string
+parameters:
+  url:
+    in: path
+    name: url
+    required: true
+    type: string
+    description: Urlencoded URL of a website
