@@ -28,6 +28,8 @@
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
+    "bootprint": "^1.0.0",
+    "bootprint-openapi": "^1.0.1",
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",
     "coveralls": "^2.13.1",
