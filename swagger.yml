@@ -9,7 +9,6 @@ info:
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
-host: petstore.swagger.io
 basePath: /
 tags:
   - name: scraper
