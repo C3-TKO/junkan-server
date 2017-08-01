@@ -7,4 +7,6 @@
 
 This is an optional server side extension for the [Junkan web application](http://c3-tko.github.io/junkan/). It enables junkan to circumvent same origin policy or X-FRAME-ORIGIN violations. The services of the Junkan-Server are meant to enrich the user experience of the [Junkan web application](http://c3-tko.github.io/junkan/).
 
-This project uses semantic commit meesages: https://seesparkbox.com/foundry/semantic_commit_messages
+[API Specification](https://c3-tko.github.io/junkan-server/docs/api-spec/index.html)
+
+This project uses semantic commit meesages: (https://seesparkbox.com/foundry/semantic_commit_messages)
