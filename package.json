@@ -8,7 +8,8 @@
     "test": "nyc mocha --timeout 1000 && eslint ./app",
     "test-debug": "mocha --inspect --timeout 1000",
     "lint": "eslint ./app",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "api-spec-generate": "bootprint openapi swagger.yml ./.bootprint_output/"
   },
   "repository": {
     "type": "git",
