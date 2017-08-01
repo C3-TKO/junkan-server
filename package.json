@@ -9,7 +9,7 @@
     "test-debug": "mocha --inspect --timeout 1000",
     "lint": "eslint ./app",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "api-spec-generate": "bootprint openapi swagger.yml ./.bootprint_output/"
+    "api-spec-generate": "bootprint openapi swagger.yml ./docs/api-spec/"
   },
   "repository": {
     "type": "git",
