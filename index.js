@@ -11,6 +11,7 @@ const app = express();
 // The api produces application/json only
 app.use(function (req, res, next) {
   res.header('Content-Type','application/json');
+  res.header('Content-Language', 'en');
   next();
 });
 
