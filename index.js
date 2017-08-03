@@ -19,14 +19,14 @@ app.use('/', scraper);
 // Final catch any route middleware used to raise 404
 app.get('*', (req, res, next) => {
   const err = new Error();
-  err.status = HTTPStatus.NOT_FOUND;
+  err.statusCode = HTTPStatus.NOT_FOUND;
   next(err);
 });
 
 // Error response handler
 app.use((err, req, res, next) => {
-  res.status(err.status);
-  res.send(err.message || '** no unicorns here **');
+  res.status(err.statusCode);
+  res.send(err.message || HTTPStatus.getStatusText(err.statusCode));
 });
 
 app.listen(3000, function () {
