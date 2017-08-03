@@ -27,7 +27,13 @@ app.get('*', (req, res, next) => {
 // Error response handler
 app.use((err, req, res, next) => {
   res.status(err.statusCode);
-  res.send(err.message || HTTPStatus.getStatusText(err.statusCode));
+  err.message = err.message || HTTPStatus.getStatusText(err.statusCode);
+  res.send(
+    {
+      type: 'about:blank',
+      title: err.message
+    }
+  );
 });
 
 app.listen(3000, function () {
