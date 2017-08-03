@@ -7,6 +7,13 @@ var scraper = require('./app/routes/scraper');
 
 const app = express();
 
+// This middleware will be executed for every request to the app
+// The api produces application/json only
+app.use(function (req, res, next) {
+  res.header('Content-Type','application/json');
+  next();
+});
+
 app.use('/', scraper);
 
 // Final catch any route middleware used to raise 404
