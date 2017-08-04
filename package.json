@@ -16,7 +16,7 @@
     "url": "git+https://github.com/C3-TKO/junkan-server.git"
   },
   "author": "Thomas Kolar",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/C3-TKO/junkan-server/issues"
   },
