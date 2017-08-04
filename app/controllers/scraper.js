@@ -1,9 +1,11 @@
 const requestPromise = require('request-promise');
-
+const validator = require('validator');
+const HTTPStatus = require('http-status-codes');
 const cheerio = require('cheerio');
 
-exports.get_title = (req, res) => {
-  const url = decodeURI(req.params.url);
+exports.get_title = (req, res, next) => {
+  const url = validateURL(req, next);
+
   const result = {
     title: '',
   };
@@ -20,8 +22,8 @@ exports.get_title = (req, res) => {
     });
 };
 
-exports.get_html = (req, res) => {
-  const url = decodeURI(req.params.url);
+exports.get_html = (req, res, next) => {
+  const url = validateURL(req, next);
 
   const result = {
     html: '',
@@ -37,4 +39,19 @@ exports.get_html = (req, res) => {
       // Crawling failed...
       res.send(err);
     });
+};
+
+validateURL = (req, next) => {
+  const url = decodeURI(req.params.url);
+
+  if (!validator.isURL(url)) {
+    const err = new Error();
+    err.statusCode = HTTPStatus.BAD_REQUEST;
+    err.title = HTTPStatus.getStatusText(err.statusCode);
+    err.detail = 'Parameter url is invalid';
+
+    next(err);
+  };
+
+  return url;
 };
