@@ -39,6 +39,7 @@ describe('Routes GET/', () => {
 				.end((err, res) => {
 					res.should.have.status(200);
           res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('title');
           res.body.title.should.equal('GOVNO');
@@ -54,6 +55,7 @@ describe('Routes GET/', () => {
 				.end((err, res) => {
 					res.should.have.status(200);
           res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('html');
           res.body.html.should.equal(new Buffer('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>').toString('base64'));
