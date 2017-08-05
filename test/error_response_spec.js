@@ -18,8 +18,8 @@ describe('Invalid routes', () => {
           res.headers['content-language'].should.equal('en');
 					res.body.should.eql(
             {
-              type: "about:blank",
-              title: "Not Found",
+              type: 'about:blank',
+              title: 'Not Found',
               status: HTTPStatus.NOT_FOUND,
             }
 					);
@@ -31,41 +31,78 @@ describe('Invalid routes', () => {
 
 
 describe('Invalid input parameters', () => {
-
-
-  describe('/GET/title/:invalid_url', () => {
+  describe('/GET/title/:invalid_url_syntax', () => {
     it('should respond with a 400 error object', (done) => {
       chai.request(server)
         .get('/title/htINVALIDtps%3A%2F%2Fwww.google.com')
         .end((err, res) => {
-          assertErrorResponseSpecification(res);
+          assertErrorResponseSpecificationInvalidURLSyntax(res);
           done();
         });
     });
   });
 
-  describe('/GET/html/:invalid_url', () => {
+  describe('/GET/html/:invalid_url_syntax', () => {
     it('should respond with a 400 error object', (done) => {
       chai.request(server)
         .get('/html/htINVALIDtps%3A%2F%2Fwww.google.com')
         .end((err, res) => {
-          assertErrorResponseSpecification(res);
+          assertErrorResponseSpecificationInvalidURLSyntax(res);
           done();
         });
     });
   });
+
+  describe('/GET/html/:#url_not_found', () => {
+    it('should respond with a 502 error object', (done) => {
+      chai.request(server)
+        .get('/html/https%3A%2F%2Finvalid.domain')
+        .end((err, res) => {
+          assertErrorResponseSpecificationInvalidURLNotFound(res);
+          done();
+        });
+    });
+  });
+
+  describe('/GET/title/:#url_not_found', () => {
+    it('should respond with a 502 error object', (done) => {
+      chai.request(server)
+        .get('/title/https%3A%2F%2Finvalid.domain')
+        .end((err, res) => {
+          assertErrorResponseSpecificationInvalidURLNotFound(res);
+          done();
+        });
+    });
+  });
+
 });
 
-assertErrorResponseSpecification = (res) => {
+assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.should.have.status(HTTPStatus.BAD_REQUEST);
   res.headers['content-type'].should.equal('application/json; charset=utf-8');
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      type: "about:blank",
-      title: "Bad Request",
+      type: 'about:blank',
+      title: 'Bad Request',
       status: HTTPStatus.BAD_REQUEST,
-      detail: "Parameter url is invalid"
+      detail: 'Parameter url is invalid'
+    }
+  );
+};
+
+assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
+  res.should.have.status(HTTPStatus.BAD_GATEWAY);
+  res.headers['content-type'].should.equal('application/json; charset=utf-8');
+  res.headers['content-language'].should.equal('en');
+  res.body.should.eql(
+    {
+      type: 'RequestError',
+      title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+      detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
+      status: HTTPStatus.BAD_GATEWAY
     }
   );
 }
+
+
