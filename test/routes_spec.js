@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const requestPromise = require('request-promise');
 const bluebird = require('bluebird');
 const should = chai.should();
+const HTTPStatus = require('http-status-codes');
 
 chai.use(chaiHttp);
 
@@ -26,7 +27,7 @@ describe('Routes GET/', () => {
 			chai.request(server)
 				.get('/')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
 					done();
 				});
 		});
@@ -37,7 +38,7 @@ describe('Routes GET/', () => {
 			chai.request(server)
 				.get('/title/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
           res.headers['content-type'].should.equal('application/json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
@@ -53,7 +54,7 @@ describe('Routes GET/', () => {
 			chai.request(server)
 				.get('/html/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
           res.headers['content-type'].should.equal('application/json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');

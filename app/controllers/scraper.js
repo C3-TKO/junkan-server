@@ -19,12 +19,15 @@ const validateURL = (req) => {
 };
 
 const formatBadGatewayErr = (err) => {
-  err.type = 'RequestError';
-  err.statusCode = HTTPStatus.BAD_GATEWAY;
-  err.detail = err.message;
-  err.message = HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY);
-
-  return err;
+  const errorResponse = Object.assign(err,
+    {
+      type: 'RequestError',
+      statusCode: HTTPStatus.BAD_GATEWAY,
+      detail: err.message,
+      message: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+    },
+  );
+  return errorResponse;
 };
 
 exports.get_title = (req, res, next) => {
