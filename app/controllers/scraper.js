@@ -12,10 +12,19 @@ const validateURL = (req) => {
 
   const err = new Error();
   err.statusCode = HTTPStatus.BAD_REQUEST;
-  err.title = HTTPStatus.getStatusText(err.statusCode);
+  err.mesaage = HTTPStatus.getStatusText(err.statusCode);
   err.detail = 'Parameter url is invalid';
 
   throw err;
+};
+
+const formatBadGatewayErr = (err) => {
+  err.type = 'RequestError';
+  err.statusCode = HTTPStatus.BAD_GATEWAY;
+  err.detail = err.message;
+  err.message = HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY);
+
+  return err;
 };
 
 exports.get_title = (req, res, next) => {
@@ -33,8 +42,7 @@ exports.get_title = (req, res, next) => {
         res.send(result);
       })
       .catch((err) => {
-        // Crawling failed...
-        res.send(err);
+        next(formatBadGatewayErr(err));
       });
   } catch (err) {
     next(err);
@@ -57,7 +65,7 @@ exports.get_html = (req, res, next) => {
       })
       .catch((err) => {
         // Crawling failed...
-        res.send(err);
+        next(formatBadGatewayErr(err));
       });
   } catch (err) {
     next(err);
