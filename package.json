@@ -27,7 +27,8 @@
     "express": "latest",
     "http-status-codes": "^1.2.0",
     "request": "latest",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "bootprint": "^1.0.0",

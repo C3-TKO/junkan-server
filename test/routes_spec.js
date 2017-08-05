@@ -22,7 +22,7 @@ describe('Routes GET/', () => {
 	});
 
 	describe('/GET /', () => {
-		it('it should GET the homepage of the junkan server', (done) => {
+		it('should GET the homepage of the junkan server', (done) => {
 			chai.request(server)
 				.get('/')
 				.end((err, res) => {
@@ -33,7 +33,7 @@ describe('Routes GET/', () => {
 	});
 
 	describe('/GET /title/:url', () => {
-		it('it should GET the title of a website', (done) => {
+		it('should GET the title of a website', (done) => {
 			chai.request(server)
 				.get('/title/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
@@ -49,7 +49,7 @@ describe('Routes GET/', () => {
 	});
 
 	describe('/GET /html/:url', () => {
-		it('it should GET the html code of a website', (done) => {
+		it('should GET the html code of a website', (done) => {
 			chai.request(server)
 				.get('/html/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
