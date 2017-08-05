@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
   const responseObject =
     {
       type: err.type || 'about:blank',
-      title: err.message || HTTPStatus.getStatusText(err.statusCode),
+      title: err.message || HTTPStatus.getStatusText((err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR)),
       status: err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR,
     };
 
