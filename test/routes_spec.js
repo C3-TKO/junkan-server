@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const requestPromise = require('request-promise');
 const bluebird = require('bluebird');
 const should = chai.should();
+const HTTPStatus = require('http-status-codes');
 
 chai.use(chaiHttp);
 
@@ -22,37 +23,43 @@ describe('Routes GET/', () => {
 	});
 
 	describe('/GET /', () => {
-		it('it should GET the homepage of the junkan server', (done) => {
+		it('should GET the homepage of the junkan server', (done) => {
 			chai.request(server)
 				.get('/')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
 					done();
 				});
 		});
 	});
 
 	describe('/GET /title/:url', () => {
-		it('it should GET the title of a website', (done) => {
+		it('should GET the title of a website', (done) => {
 			chai.request(server)
 				.get('/title/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
+          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('title');
+          res.body.title.should.equal('GOVNO');
 					done();
 				});
 		});
 	});
 
 	describe('/GET /html/:url', () => {
-		it('it should GET the html code of a website', (done) => {
+		it('should GET the html code of a website', (done) => {
 			chai.request(server)
 				.get('/html/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(HTTPStatus.OK);
+          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('html');
+          res.body.html.should.equal(new Buffer('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>').toString('base64'));
 					done();
 				});
 		});

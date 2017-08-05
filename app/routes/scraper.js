@@ -7,7 +7,14 @@ const scraperController = require('../controllers/scraper');
 
 
 router.get('/', (req, res) => {
-  res.send('Scraper home page');
+  res.send(
+    {
+      routes: [
+        '/title/:url',
+        '/html/:url',
+      ],
+    },
+  );
 });
 
 router.get('/title/:url', scraperController.get_title);

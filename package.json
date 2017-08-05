@@ -7,7 +7,7 @@
     "start": "./node_modules/nodemon/bin/nodemon.js",
     "test": "nyc mocha --timeout 1000 && eslint ./app",
     "test-debug": "mocha --inspect --timeout 1000",
-    "lint": "eslint ./app",
+    "lint": "eslint ./app index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "api-spec-generate": "bootprint openapi swagger.yml ./docs/api-spec/"
   },
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/C3-TKO/junkan-server.git"
   },
   "author": "Thomas Kolar",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/C3-TKO/junkan-server/issues"
   },
@@ -25,8 +25,10 @@
     "bluebird": "^3.5.0",
     "cheerio": "latest",
     "express": "latest",
+    "http-status-codes": "^1.2.0",
     "request": "latest",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "bootprint": "^1.0.0",
