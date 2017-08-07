@@ -2,6 +2,7 @@ const express = require('express');
 const HTTPStatus = require('http-status-codes');
 
 const scraper = require('./app/routes/scraper');
+const handleErrorResponse = require('./app/errorResponse');
 
 const app = express();
 
@@ -23,22 +24,7 @@ app.get('*', (req, res, next) => {
 });
 
 // Error response handler
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  const responseObject =
-    {
-      type: err.type || 'about:blank',
-      title: err.message || HTTPStatus.getStatusText((err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR)),
-      status: err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR,
-    };
-
-  if (typeof err.detail !== 'undefined') {
-    responseObject.detail = err.detail;
-  }
-
-  res.status(responseObject.status);
-  res.send(responseObject);
-});
+app.use(handleErrorResponse);
 
 app.listen(3000, () => {
   console.log('Junkan server is running on port 3000!');
