@@ -5,7 +5,6 @@ const router = express.Router();
 // Require controller modules
 const scraperController = require('../controllers/scraper');
 
-
 router.get('/', (req, res) => {
   res.send(
     {
