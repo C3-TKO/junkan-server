@@ -4,7 +4,6 @@ const HTTPStatus = require('http-status-codes');
 function handleErrorResponse(err, req, res, next) {
   const responseObject =
     {
-      type: err.type || 'about:blank',
       title:
         err.message ||
         HTTPStatus.getStatusText((err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR)),
