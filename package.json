@@ -7,7 +7,7 @@
     "start": "./node_modules/nodemon/bin/nodemon.js",
     "test": "nyc mocha --timeout 1000 && eslint ./app",
     "test-debug": "mocha --inspect --timeout 1000",
-    "lint": "eslint ./app index.js",
+    "lint": "eslint ./app index.js ./test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "api-spec-generate": "bootprint openapi swagger.yml ./docs/api-spec/"
   },
