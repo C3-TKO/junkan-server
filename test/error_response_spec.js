@@ -20,7 +20,6 @@ describe('Invalid routes', () => {
           res.headers['content-language'].should.equal('en');
 					res.body.should.eql(
             {
-              type: 'about:blank',
               title: 'Not Found',
               status: HTTPStatus.NOT_FOUND,
             }
@@ -118,41 +117,6 @@ describe('Error response handling', () => {
     done();
   });
 
-  it('should handle error type', (done) => {
-    const err =
-      {
-        type: 'TEST',
-      };
-
-    const errorResponse =
-      {
-        type: 'TEST',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-      };
-
-    handleErrorResponse(err, null, res, null);
-
-    res.send.withArgs(errorResponse).calledOnce.should.equal(true);
-    done();
-  });
-
-  it('should handle undefined error type', (done) => {
-    const err = {};
-
-    const errorResponse =
-      {
-        type: 'about:blank',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-      };
-
-    handleErrorResponse(err, null, res, null);
-
-    res.send.withArgs(errorResponse).calledOnce.should.equal(true);
-    done();
-  });
-
   it('should handle error messages', (done) => {
     const err =
       {
@@ -161,7 +125,6 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
         title: 'TEST',
         status: HTTPStatus.INTERNAL_SERVER_ERROR,
       };
@@ -180,7 +143,6 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
         title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
         status: HTTPStatus.INTERNAL_SERVER_ERROR,
       };
@@ -199,7 +161,6 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
         title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
         status: HTTPStatus.INTERNAL_SERVER_ERROR,
         detail: 'TEST',
@@ -216,7 +177,6 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
         title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
         status: HTTPStatus.INTERNAL_SERVER_ERROR,
       };
@@ -234,7 +194,6 @@ assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      type: 'about:blank',
       title: 'Bad Request',
       status: HTTPStatus.BAD_REQUEST,
       detail: 'Parameter url is invalid'
@@ -248,7 +207,6 @@ assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      type: 'RequestError',
       title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
       detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
       status: HTTPStatus.BAD_GATEWAY
