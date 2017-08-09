@@ -15,13 +15,18 @@ describe('Invalid routes', () => {
 			chai.request(server)
 				.get('/unknown-route')
 				.end((err, res) => {
-					res.should.have.status(HTTPStatus.NOT_FOUND);
+					res.status.should.equal(HTTPStatus.NOT_FOUND);
           res.headers['content-type'].should.equal('application/json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.eql(
             {
-              title: 'Not Found',
-              status: HTTPStatus.NOT_FOUND,
+              errors:
+              [
+                {
+                  title: 'Not Found',
+                  status: HTTPStatus.NOT_FOUND,
+                },
+              ],
             }
 					);
 					done();
@@ -125,8 +130,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        title: 'TEST',
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: 'TEST',
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -143,8 +153,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -161,9 +176,14 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-        detail: 'TEST',
+        errors:
+          [
+            {
+              title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+              status: HTTPStatus.INTERNAL_SERVER_ERROR,
+              detail: 'TEST',
+            },
+          ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -177,8 +197,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -194,9 +219,14 @@ assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      title: 'Bad Request',
-      status: HTTPStatus.BAD_REQUEST,
-      detail: 'Parameter url is invalid'
+      errors:
+      [
+        {
+          title: 'Bad Request',
+          status: HTTPStatus.BAD_REQUEST,
+          detail: 'Parameter url is invalid',
+        },
+      ],
     }
   );
 };
@@ -207,9 +237,14 @@ assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
-      detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
-      status: HTTPStatus.BAD_GATEWAY
+      errors:
+      [
+        {
+          title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+          detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
+          status: HTTPStatus.BAD_GATEWAY,
+        },
+      ],
     }
   );
 }
