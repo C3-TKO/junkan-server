@@ -9,7 +9,7 @@ const app = express();
 // This middleware will be executed for every request to the app
 // The api produces application/json only
 app.use((req, res, next) => {
-  res.header('Content-Type', 'application/json');
+  res.header('Content-Type', 'application/vnd.api+json');
   res.header('Content-Language', 'en');
   next();
 });

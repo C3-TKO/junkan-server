@@ -21,7 +21,6 @@ const validateURL = (req) => {
 const formatBadGatewayErr = (err) => {
   const errorResponse = Object.assign(err,
     {
-      type: 'RequestError',
       statusCode: HTTPStatus.BAD_GATEWAY,
       detail: err.message,
       message: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
@@ -35,12 +34,14 @@ exports.get_title = (req, res, next) => {
     const url = validateURL(req);
 
     const result = {
-      title: '',
+      data: {
+        title: '',
+      },
     };
     requestPromise.get(url)
       .then((html) => {
         const $ = cheerio.load(html);
-        result.title = $('title').text();
+        result.data.title = $('title').text();
 
         res.send(result);
       })
@@ -57,12 +58,15 @@ exports.get_html = (req, res, next) => {
     const url = validateURL(req);
 
     const result = {
-      html: '',
+      data:
+        {
+          html: '',
+        },
     };
 
     requestPromise.get(url)
       .then((html) => {
-        result.html = new Buffer(html).toString('base64');
+        result.data.html = new Buffer(html).toString('base64');
 
         res.send(result);
       })

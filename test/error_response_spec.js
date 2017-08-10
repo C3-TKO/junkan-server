@@ -15,14 +15,18 @@ describe('Invalid routes', () => {
 			chai.request(server)
 				.get('/unknown-route')
 				.end((err, res) => {
-					res.should.have.status(HTTPStatus.NOT_FOUND);
-          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+					res.status.should.equal(HTTPStatus.NOT_FOUND);
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.eql(
             {
-              type: 'about:blank',
-              title: 'Not Found',
-              status: HTTPStatus.NOT_FOUND,
+              errors:
+              [
+                {
+                  title: 'Not Found',
+                  status: HTTPStatus.NOT_FOUND,
+                },
+              ],
             }
 					);
 					done();
@@ -118,41 +122,6 @@ describe('Error response handling', () => {
     done();
   });
 
-  it('should handle error type', (done) => {
-    const err =
-      {
-        type: 'TEST',
-      };
-
-    const errorResponse =
-      {
-        type: 'TEST',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-      };
-
-    handleErrorResponse(err, null, res, null);
-
-    res.send.withArgs(errorResponse).calledOnce.should.equal(true);
-    done();
-  });
-
-  it('should handle undefined error type', (done) => {
-    const err = {};
-
-    const errorResponse =
-      {
-        type: 'about:blank',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-      };
-
-    handleErrorResponse(err, null, res, null);
-
-    res.send.withArgs(errorResponse).calledOnce.should.equal(true);
-    done();
-  });
-
   it('should handle error messages', (done) => {
     const err =
       {
@@ -161,9 +130,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
-        title: 'TEST',
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: 'TEST',
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -180,9 +153,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -199,10 +176,14 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
-        detail: 'TEST',
+        errors:
+          [
+            {
+              title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+              status: HTTPStatus.INTERNAL_SERVER_ERROR,
+              detail: 'TEST',
+            },
+          ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -216,9 +197,13 @@ describe('Error response handling', () => {
 
     const errorResponse =
       {
-        type: 'about:blank',
-        title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
-        status: HTTPStatus.INTERNAL_SERVER_ERROR,
+        errors:
+        [
+          {
+            title: HTTPStatus.getStatusText(HTTPStatus.INTERNAL_SERVER_ERROR),
+            status: HTTPStatus.INTERNAL_SERVER_ERROR,
+          },
+        ],
       };
 
     handleErrorResponse(err, null, res, null);
@@ -230,28 +215,36 @@ describe('Error response handling', () => {
 
 assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.should.have.status(HTTPStatus.BAD_REQUEST);
-  res.headers['content-type'].should.equal('application/json; charset=utf-8');
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      type: 'about:blank',
-      title: 'Bad Request',
-      status: HTTPStatus.BAD_REQUEST,
-      detail: 'Parameter url is invalid'
+      errors:
+      [
+        {
+          title: 'Bad Request',
+          status: HTTPStatus.BAD_REQUEST,
+          detail: 'Parameter url is invalid',
+        },
+      ],
     }
   );
 };
 
 assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
   res.should.have.status(HTTPStatus.BAD_GATEWAY);
-  res.headers['content-type'].should.equal('application/json; charset=utf-8');
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
-      type: 'RequestError',
-      title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
-      detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
-      status: HTTPStatus.BAD_GATEWAY
+      errors:
+      [
+        {
+          title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+          detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
+          status: HTTPStatus.BAD_GATEWAY,
+        },
+      ],
     }
   );
 }

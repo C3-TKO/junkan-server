@@ -12,6 +12,10 @@
     <p><p>This is the api specification for the <a href="https://github.com/C3-TKO/junkan-server">junkan-server</a>.</p>
     </p>
     
+        <div id="sw-default-produces" class="sw-default-value">
+            <span class="sw-default-value-header">Default response content-types:</span>
+            application/vnd.api+json
+        </div>
     
     <div id="sw-schemes" class="sw-default-value">
         <span class="sw-default-value-header">Schemes:</span>
@@ -107,9 +111,10 @@
                         </section>
                     
                         <section class="sw-responses">
-                                <p><span class="label label-default">application/json</span> 
-                    </p>
-                    
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/vnd.api+json</span> 
+                                </p>
+                            
                             <dl>
                                     <dt class="sw-response-200">
                                         200 OK
@@ -127,43 +132,187 @@
                                                 <div class="col-md-6 sw-response-model">
                                                 <div  class="panel panel-definition">
                                                     <div class="panel-body">
-                                                                <a class="json-schema-ref" href="#/definitions/Code">Code</a>
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="data">
+                                                                                    <span class="json-property-name">data:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/code">code</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
                                                     </div>
                                                 </div></div>
                                             
                                             </div>                </dd>
                                     <dt class="sw-response-400">
                                         400 Bad Request
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/400">#/responses/400</a></span>
                                     
                                     </dt>
                                     <dd class="sw-response-400">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <p>Invalid URL supplied</p>
+                                                    <p>Bad Request</p>
                                             
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 
                                                 <div class="col-md-6 sw-response-model">
-                                            </div>
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
                                             
                                             </div>                </dd>
-                                    <dt class="sw-response-404">
-                                        404 Not Found
+                                    <dt class="sw-response-500">
+                                        500 Internal Server Error
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/500">#/responses/500</a></span>
                                     
                                     </dt>
-                                    <dd class="sw-response-404">
+                                    <dd class="sw-response-500">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <p>URL not found</p>
+                                                    <p>Internal Server Error</p>
                                             
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 
                                                 <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-502">
+                                        502 Bad Gateway
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/502">#/responses/502</a></span>
+                                    
+                                    </dt>
+                                    <dd class="sw-response-502">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Bad Gateway</p>
+                                            
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-504">
+                                        504 Gateway Timeout
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/504">#/responses/504</a></span>
+                                    
+                                    </dt>
+                                    <dd class="sw-response-504">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Gateway Timeout</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
                                             
                                             </div>                </dd>
                             </dl>
@@ -217,9 +366,10 @@
                         </section>
                     
                         <section class="sw-responses">
-                                <p><span class="label label-default">application/json</span> 
-                    </p>
-                    
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/vnd.api+json</span> 
+                                </p>
+                            
                             <dl>
                                     <dt class="sw-response-200">
                                         200 OK
@@ -237,43 +387,187 @@
                                                 <div class="col-md-6 sw-response-model">
                                                 <div  class="panel panel-definition">
                                                     <div class="panel-body">
-                                                                <a class="json-schema-ref" href="#/definitions/Title">Title</a>
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="data">
+                                                                                    <span class="json-property-name">data:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/title">title</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
                                                     </div>
                                                 </div></div>
                                             
                                             </div>                </dd>
                                     <dt class="sw-response-400">
                                         400 Bad Request
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/400">#/responses/400</a></span>
                                     
                                     </dt>
                                     <dd class="sw-response-400">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <p>Invalid URL supplied</p>
+                                                    <p>Bad Request</p>
                                             
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 
                                                 <div class="col-md-6 sw-response-model">
-                                            </div>
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
                                             
                                             </div>                </dd>
-                                    <dt class="sw-response-404">
-                                        404 Not Found
+                                    <dt class="sw-response-500">
+                                        500 Internal Server Error
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/500">#/responses/500</a></span>
                                     
                                     </dt>
-                                    <dd class="sw-response-404">
+                                    <dd class="sw-response-500">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <p>URL not found</p>
+                                                    <p>Internal Server Error</p>
                                             
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 
                                                 <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-502">
+                                        502 Bad Gateway
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/502">#/responses/502</a></span>
+                                    
+                                    </dt>
+                                    <dd class="sw-response-502">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Bad Gateway</p>
+                                            
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-504">
+                                        504 Gateway Timeout
+                                            <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/responses/504">#/responses/504</a></span>
+                                    
+                                    </dt>
+                                    <dd class="sw-response-504">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Gateway Timeout</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                                    <section class="json-schema-properties">
+                                                                        <dl>
+                                                                                <dt data-property-name="errors">
+                                                                                    <span class="json-property-name">errors:</span>
+                                                                                    
+                                                                                    <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                                                    </span>
+                                                                                    <span class="json-property-range" title="Value limits"></span>
+                                                                                    
+                                                                                </dt>
+                                                                                <dd>
+                                                                                    
+                                                                                    <div class="json-inner-schema">
+                                                                                        
+                                                                                    </div>
+                                                                                </dd>
+                                                                        </dl>
+                                                                    </section>
+                                                    </div>
+                                                </div></div>
                                             
                                             </div>                </dd>
                             </dl>
@@ -312,14 +606,162 @@
             </tbody>
         </table>
      
+    <h2>Response definitions</h2>
+    
+    <dl id="sw-response-definitions">
+            <dt><a name=""></a>400</dt>
+            <dd>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Bad Request</p>
+                
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6 sw-response-model">
+                    <div  class="panel panel-definition">
+                        <div class="panel-body">
+                                
+                                        <section class="json-schema-properties">
+                                            <dl>
+                                                    <dt data-property-name="errors">
+                                                        <span class="json-property-name">errors:</span>
+                                                        
+                                                        <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                        </span>
+                                                        <span class="json-property-range" title="Value limits"></span>
+                                                        
+                                                    </dt>
+                                                    <dd>
+                                                        
+                                                        <div class="json-inner-schema">
+                                                            
+                                                        </div>
+                                                    </dd>
+                                            </dl>
+                                        </section>
+                        </div>
+                    </div></div>
+                
+                </div>        </dd>
+            <dt><a name=""></a>500</dt>
+            <dd>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Internal Server Error</p>
+                
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6 sw-response-model">
+                    <div  class="panel panel-definition">
+                        <div class="panel-body">
+                                
+                                        <section class="json-schema-properties">
+                                            <dl>
+                                                    <dt data-property-name="errors">
+                                                        <span class="json-property-name">errors:</span>
+                                                        
+                                                        <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                        </span>
+                                                        <span class="json-property-range" title="Value limits"></span>
+                                                        
+                                                    </dt>
+                                                    <dd>
+                                                        
+                                                        <div class="json-inner-schema">
+                                                            
+                                                        </div>
+                                                    </dd>
+                                            </dl>
+                                        </section>
+                        </div>
+                    </div></div>
+                
+                </div>        </dd>
+            <dt><a name=""></a>502</dt>
+            <dd>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Bad Gateway</p>
+                
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6 sw-response-model">
+                    <div  class="panel panel-definition">
+                        <div class="panel-body">
+                                
+                                        <section class="json-schema-properties">
+                                            <dl>
+                                                    <dt data-property-name="errors">
+                                                        <span class="json-property-name">errors:</span>
+                                                        
+                                                        <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                        </span>
+                                                        <span class="json-property-range" title="Value limits"></span>
+                                                        
+                                                    </dt>
+                                                    <dd>
+                                                        
+                                                        <div class="json-inner-schema">
+                                                            
+                                                        </div>
+                                                    </dd>
+                                            </dl>
+                                        </section>
+                        </div>
+                    </div></div>
+                
+                </div>        </dd>
+            <dt><a name=""></a>504</dt>
+            <dd>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Gateway Timeout</p>
+                
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6 sw-response-model">
+                    <div  class="panel panel-definition">
+                        <div class="panel-body">
+                                
+                                        <section class="json-schema-properties">
+                                            <dl>
+                                                    <dt data-property-name="errors">
+                                                        <span class="json-property-name">errors:</span>
+                                                        
+                                                        <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/errors">errors</a>
+                                                        </span>
+                                                        <span class="json-property-range" title="Value limits"></span>
+                                                        
+                                                    </dt>
+                                                    <dd>
+                                                        
+                                                        <div class="json-inner-schema">
+                                                            
+                                                        </div>
+                                                    </dd>
+                                            </dl>
+                                        </section>
+                        </div>
+                    </div></div>
+                
+                </div>        </dd>
+    </dl>
     
                        
         <h2>Schema definitions</h2>
     
             
-                <div id="definition-Code" class="panel panel-definition">
+                <div id="definition-code" class="panel panel-definition">
                         <div class="panel-heading">
-                                <h3 class="panel-title"><a name="/definitions/Code"></a>Code:
+                                <h3 class="panel-title"><a name="/definitions/code"></a>code:
                                     <span class="json-property-type">
                 <span class="json-property-type">object</span>
                 <span class="json-property-range" title="Value limits"></span>
@@ -348,9 +790,98 @@
                                     </section>
                     </div>
                 </div>        
-                <div id="definition-Title" class="panel panel-definition">
+                <div id="definition-error" class="panel panel-definition">
                         <div class="panel-heading">
-                                <h3 class="panel-title"><a name="/definitions/Title"></a>Title:
+                                <h3 class="panel-title"><a name="/definitions/error"></a>error:
+                                    <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                    <section class="json-schema-properties">
+                                        <dl>
+                                                <dt data-property-name="status">
+                                                    <span class="json-property-name">status:</span>
+                                                    
+                                                    <span class="json-property-type">integer</span>
+                                                    <span class="json-property-range" title="Value limits"></span>
+                                                    
+                                                        <span class="json-property-required"></span>
+                                                </dt>
+                                                <dd>
+                                                    <p>HTTP status code of the error</p>
+                                    
+                                                    <div class="json-inner-schema">
+                                                        
+                                                    </div>
+                                                </dd>
+                                                <dt data-property-name="title">
+                                                    <span class="json-property-name">title:</span>
+                                                    
+                                                    <span class="json-property-type">string</span>
+                                                    <span class="json-property-range" title="Value limits"></span>
+                                                    
+                                                        <span class="json-property-required"></span>
+                                                </dt>
+                                                <dd>
+                                                    <p>HTTP status name of the error</p>
+                                    
+                                                    <div class="json-inner-schema">
+                                                        
+                                                    </div>
+                                                </dd>
+                                                <dt data-property-name="detail">
+                                                    <span class="json-property-name">detail:</span>
+                                                    
+                                                    <span class="json-property-type">string</span>
+                                                    <span class="json-property-range" title="Value limits"></span>
+                                                    
+                                                </dt>
+                                                <dd>
+                                                    <p>Optional detailed description of the error</p>
+                                    
+                                                    <div class="json-inner-schema">
+                                                        
+                                                    </div>
+                                                </dd>
+                                        </dl>
+                                    </section>
+                    </div>
+                </div>        
+                <div id="definition-errors" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/errors"></a>errors:
+                                    <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                                <section class="json-schema-description">
+                                    <p>This contains all errors that occured during request execution</p>
+                            
+                                </section>
+                            
+                                            <section class="json-schema-array-items">
+                                                
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/error">error</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </section>    </div>
+                </div>        
+                <div id="definition-title" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/title"></a>title:
                                     <span class="json-property-type">
                 <span class="json-property-type">object</span>
                 <span class="json-property-range" title="Value limits"></span>

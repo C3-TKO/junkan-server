@@ -2,20 +2,28 @@ const HTTPStatus = require('http-status-codes');
 
 // eslint-disable-next-line no-unused-vars
 function handleErrorResponse(err, req, res, next) {
+  const title =
+    err.message ||
+    HTTPStatus.getStatusText((err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR));
+  const status = err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR;
+
   const responseObject =
     {
-      type: err.type || 'about:blank',
-      title:
-        err.message ||
-        HTTPStatus.getStatusText((err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR)),
-      status: err.statusCode || HTTPStatus.INTERNAL_SERVER_ERROR,
+      errors:
+      [
+        {
+          title,
+          status,
+        },
+      ],
+
     };
 
   if (typeof err.detail !== 'undefined') {
-    responseObject.detail = err.detail;
+    responseObject.errors[0].detail = err.detail;
   }
 
-  res.status(responseObject.status);
+  res.status(status);
   res.send(responseObject);
 }
 
