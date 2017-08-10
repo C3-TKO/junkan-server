@@ -39,7 +39,7 @@ describe('Routes GET/', () => {
 				.get('/title/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
 					res.should.have.status(HTTPStatus.OK);
-          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('title');
@@ -55,7 +55,7 @@ describe('Routes GET/', () => {
 				.get('/html/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
 					res.should.have.status(HTTPStatus.OK);
-          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.be.a('object');
 					res.body.should.have.property('html');

@@ -16,7 +16,7 @@ describe('Invalid routes', () => {
 				.get('/unknown-route')
 				.end((err, res) => {
 					res.status.should.equal(HTTPStatus.NOT_FOUND);
-          res.headers['content-type'].should.equal('application/json; charset=utf-8');
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
 					res.body.should.eql(
             {
@@ -215,7 +215,7 @@ describe('Error response handling', () => {
 
 assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.should.have.status(HTTPStatus.BAD_REQUEST);
-  res.headers['content-type'].should.equal('application/json; charset=utf-8');
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
@@ -233,7 +233,7 @@ assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
 
 assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
   res.should.have.status(HTTPStatus.BAD_GATEWAY);
-  res.headers['content-type'].should.equal('application/json; charset=utf-8');
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
   res.headers['content-language'].should.equal('en');
   res.body.should.eql(
     {
