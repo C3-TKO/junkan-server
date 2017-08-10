@@ -41,9 +41,14 @@ describe('Routes GET/', () => {
 					res.should.have.status(HTTPStatus.OK);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
-					res.body.should.be.a('object');
-					res.body.should.have.property('title');
-          res.body.title.should.equal('GOVNO');
+          res.body.should.eql(
+            {
+              data:
+								{
+									title: 'GOVNO',
+								},
+            }
+          );
 					done();
 				});
 		});
@@ -54,12 +59,20 @@ describe('Routes GET/', () => {
 			chai.request(server)
 				.get('/html/https%3A%2F%2Fwww.google.com')
 				.end((err, res) => {
+					const resultHTML =
+						new Buffer('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>').toString('base64');
+
 					res.should.have.status(HTTPStatus.OK);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
-					res.body.should.be.a('object');
-					res.body.should.have.property('html');
-          res.body.html.should.equal(new Buffer('<html><head><title>GOVNO</title><body>GLUPOST</body></head></html>').toString('base64'));
+          res.body.should.eql(
+            {
+              data:
+                {
+                  html: resultHTML,
+                },
+            }
+          );
 					done();
 				});
 		});
