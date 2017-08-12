@@ -3,6 +3,8 @@ const validator = require('validator');
 const HTTPStatus = require('http-status-codes');
 const cheerio = require('cheerio');
 
+const REQUEST_TIMEOUT = 200;
+
 const validateURL = (req) => {
   const url = decodeURI(req.params.url);
 
@@ -18,14 +20,18 @@ const validateURL = (req) => {
   throw err;
 };
 
-const formatBadGatewayErr = (err) => {
+const formatGatewayErr = (err) => {
+  const statusCode = typeof err.error.code !== 'undefined' && err.error.code === 'ESOCKETTIMEDOUT'
+    ? HTTPStatus.GATEWAY_TIMEOUT
+    : HTTPStatus.BAD_GATEWAY;
+
   const errorResponse = Object.assign(err,
     {
-      statusCode: HTTPStatus.BAD_GATEWAY,
-      detail: err.message,
-      message: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+      statusCode,
+      message: HTTPStatus.getStatusText(statusCode),
     },
   );
+
   return errorResponse;
 };
 
@@ -38,16 +44,18 @@ exports.get_title = (req, res, next) => {
         title: '',
       },
     };
-    requestPromise.get(url)
-      .then((html) => {
-        const $ = cheerio.load(html);
-        result.data.title = $('title').text();
 
-        res.send(result);
-      })
-      .catch((err) => {
-        next(formatBadGatewayErr(err));
-      });
+    requestPromise.get({
+      uri: url,
+      timeout: REQUEST_TIMEOUT,
+    }).then((html) => {
+      const $ = cheerio.load(html);
+      result.data.title = $('title').text();
+
+      res.send(result);
+    }).catch((err) => {
+      next(formatGatewayErr(err));
+    });
   } catch (err) {
     next(err);
   }
@@ -64,16 +72,16 @@ exports.get_html = (req, res, next) => {
         },
     };
 
-    requestPromise.get(url)
-      .then((html) => {
-        result.data.html = new Buffer(html).toString('base64');
-
-        res.send(result);
-      })
-      .catch((err) => {
-        // Crawling failed...
-        next(formatBadGatewayErr(err));
-      });
+    requestPromise.get({
+      uri: url,
+      timeout: REQUEST_TIMEOUT,
+    }).then((html) => {
+      result.data.html = new Buffer(html).toString('base64');
+      res.send(result);
+    }).catch((err) => {
+      // Crawling failed...
+      next(formatGatewayErr(err));
+    });
   } catch (err) {
     next(err);
   }

@@ -36,7 +36,7 @@ describe('Routes GET/', () => {
 	describe('/GET /title/:url', () => {
 		it('should GET the title of a website', (done) => {
 			chai.request(server)
-				.get('/title/https%3A%2F%2Fwww.google.com')
+				.get('/title/http%3A%2F%2Fwww.cevapsushi.de')
 				.end((err, res) => {
 					res.should.have.status(HTTPStatus.OK);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
