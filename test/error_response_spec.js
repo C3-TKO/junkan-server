@@ -1,6 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
+const requestPromise = require('request-promise');
+const bluebird = require('bluebird');
 const should = chai.should();
 const sinon = require('sinon');
 const HTTPStatus = require('http-status-codes');
@@ -34,7 +36,6 @@ describe('Invalid routes', () => {
 		});
 	});
 });
-
 
 describe('Invalid input parameters', () => {
   describe('/GET/title/:invalid_url_syntax', () => {
@@ -85,8 +86,6 @@ describe('Invalid input parameters', () => {
 
 
 describe('Error response handling', () => {
-
-  //handleErrorResponse(err, req, res, next)
   const res = {};
   res.send = sinon.spy();
   res.status = sinon.spy();
@@ -213,6 +212,8 @@ describe('Error response handling', () => {
   });
 });
 
+
+
 assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   res.should.have.status(HTTPStatus.BAD_REQUEST);
   res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
@@ -231,6 +232,71 @@ assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
   );
 };
 
+describe('Internal request timeouts', () => {
+
+  const expectedErrorStub ={error: {code: 'ESOCKETTIMEDOUT'}}
+
+  // Mocking the inner requests of the scaper controller
+  const timeoutedRequest = bluebird.reject(expectedErrorStub);
+
+  before(function() {
+    const scraperRequestStub = sinon.stub(requestPromise, 'get');
+    scraperRequestStub.returns(timeoutedRequest);
+  });
+
+  after(function() {
+    requestPromise.get.restore();
+  });
+
+  describe('/GET /html/:url', () => {
+    it('should respond with a 504 error object', (done) => {
+      chai.request(server)
+        .get('/html/https%3A%2F%2Fwww.google.com')
+        .end((err, res) => {
+          res.status.should.equal(HTTPStatus.GATEWAY_TIMEOUT);
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
+          res.body.should.eql(
+            {
+              errors:
+                [
+                  {
+                    title: HTTPStatus.getStatusText(HTTPStatus.GATEWAY_TIMEOUT),
+                    status: HTTPStatus.GATEWAY_TIMEOUT,
+                  },
+                ],
+            }
+          );
+          done();
+        });
+    });
+  });
+
+  describe('/GET /title/:url', () => {
+    it('should respond with a 504 error object', (done) => {
+      chai.request(server)
+        .get('/title/https%3A%2F%2Fwww.google.com')
+        .end((err, res) => {
+          res.status.should.equal(HTTPStatus.GATEWAY_TIMEOUT);
+          res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
+          res.headers['content-language'].should.equal('en');
+          res.body.should.eql(
+            {
+              errors:
+                [
+                  {
+                    title: HTTPStatus.getStatusText(HTTPStatus.GATEWAY_TIMEOUT),
+                    status: HTTPStatus.GATEWAY_TIMEOUT,
+                  },
+                ],
+            }
+          );
+          done();
+        });
+    });
+  });
+});
+
 assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
   res.should.have.status(HTTPStatus.BAD_GATEWAY);
   res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
@@ -241,7 +307,6 @@ assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
       [
         {
           title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
-          detail: 'Error: getaddrinfo ENOTFOUND invalid.domain invalid.domain:443',
           status: HTTPStatus.BAD_GATEWAY,
         },
       ],
