@@ -1,6 +1,6 @@
 {
   "name": "junkan-server",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "This is an optional server for the junkan web app",
   "main": "index.js",
   "scripts": {
