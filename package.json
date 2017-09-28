@@ -35,7 +35,7 @@
     "bootprint-openapi": "^1.0.1",
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-config-airbnb-base": "^11.2.0",
