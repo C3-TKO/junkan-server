@@ -40,7 +40,7 @@
     "eslint-config-airbnb": "^15.0.2",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
-    "mocha": "^3.4.2",
+    "mocha": "^4.0.0",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.3",
     "sinon": "^3.0.0"
