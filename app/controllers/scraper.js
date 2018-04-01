@@ -77,7 +77,7 @@ exports.get_html = (req, res, next) => {
       uri: url,
       timeout: REQUEST_TIMEOUT,
     }).then((html) => {
-      result.data.html = new Buffer(html).toString('base64');
+      result.data.html = Buffer.from(html).toString('base64');
       res.send(result);
     }).catch((err) => {
       // Crawling failed...

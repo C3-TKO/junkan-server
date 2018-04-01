@@ -131,7 +131,7 @@ describe('Error response handling', () => {
     handleErrorResponse(err, null, res, null);
 
     res.status.withArgs(HTTPStatus.BAD_REQUEST).calledOnce.should.equal(true);
-    res.send.calledOnce;
+    sinon.assert.calledOnce(res.send);
     done();
   });
 
@@ -144,7 +144,7 @@ describe('Error response handling', () => {
     handleErrorResponse(err, null, res, null);
 
     res.status.withArgs(HTTPStatus.INTERNAL_SERVER_ERROR).calledOnce.should.equal(true);
-    res.send.calledOnce;
+    sinon.assert.calledOnce(res.send);
     done();
   });
 
