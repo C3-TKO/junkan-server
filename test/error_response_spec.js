@@ -1,17 +1,47 @@
+/* global describe, it, before, beforeEach, after */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
 const requestPromise = require('request-promise');
 const bluebird = require('bluebird');
-const should = chai.should();
 const sinon = require('sinon');
 const HTTPStatus = require('http-status-codes');
 const handleErrorResponse = require('../app/errorResponse');
 
 chai.use(chaiHttp);
 
-describe('Invalid routes', () => {
+const assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
+  res.should.have.status(HTTPStatus.BAD_REQUEST);
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
+  res.headers['content-language'].should.equal('en');
+  res.body.should.eql({
+    errors:
+        [
+          {
+            title: 'Bad Request',
+            status: HTTPStatus.BAD_REQUEST,
+            detail: 'Parameter url is invalid',
+          },
+        ],
+  });
+};
 
+const assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
+  res.should.have.status(HTTPStatus.BAD_GATEWAY);
+  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
+  res.headers['content-language'].should.equal('en');
+  res.body.should.eql({
+    errors:
+        [
+          {
+            title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
+            status: HTTPStatus.BAD_GATEWAY,
+          },
+        ],
+  });
+};
+
+describe('Invalid routes', () => {
   describe('/GET/unknown-route', () => {
     it('should respond with a 404 error object', (done) => {
       chai.request(server)
@@ -20,17 +50,15 @@ describe('Invalid routes', () => {
           res.status.should.equal(HTTPStatus.NOT_FOUND);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
-          res.body.should.eql(
-            {
-              errors:
+          res.body.should.eql({
+            errors:
                 [
                   {
                     title: 'Not Found',
                     status: HTTPStatus.NOT_FOUND,
                   },
                 ],
-            }
-          );
+          });
           done();
         });
     });
@@ -81,7 +109,6 @@ describe('Invalid input parameters', () => {
         });
     });
   });
-
 });
 
 
@@ -212,39 +239,18 @@ describe('Error response handling', () => {
   });
 });
 
-
-
-assertErrorResponseSpecificationInvalidURLSyntax = (res) => {
-  res.should.have.status(HTTPStatus.BAD_REQUEST);
-  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
-  res.headers['content-language'].should.equal('en');
-  res.body.should.eql(
-    {
-      errors:
-        [
-          {
-            title: 'Bad Request',
-            status: HTTPStatus.BAD_REQUEST,
-            detail: 'Parameter url is invalid',
-          },
-        ],
-    }
-  );
-};
-
 describe('Internal request timeouts', () => {
-
-  const expectedErrorStub = { error: { code: 'ESOCKETTIMEDOUT' } }
+  const expectedErrorStub = { error: { code: 'ESOCKETTIMEDOUT' } };
 
   // Mocking the inner requests of the scaper controller
   const timeoutedRequest = bluebird.reject(expectedErrorStub);
 
-  before(function () {
+  before(() => {
     const scraperRequestStub = sinon.stub(requestPromise, 'get');
     scraperRequestStub.returns(timeoutedRequest);
   });
 
-  after(function () {
+  after(() => {
     requestPromise.get.restore();
   });
 
@@ -256,17 +262,15 @@ describe('Internal request timeouts', () => {
           res.status.should.equal(HTTPStatus.GATEWAY_TIMEOUT);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
-          res.body.should.eql(
-            {
-              errors:
+          res.body.should.eql({
+            errors:
                 [
                   {
                     title: HTTPStatus.getStatusText(HTTPStatus.GATEWAY_TIMEOUT),
                     status: HTTPStatus.GATEWAY_TIMEOUT,
                   },
                 ],
-            }
-          );
+          });
           done();
         });
     });
@@ -280,38 +284,17 @@ describe('Internal request timeouts', () => {
           res.status.should.equal(HTTPStatus.GATEWAY_TIMEOUT);
           res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
           res.headers['content-language'].should.equal('en');
-          res.body.should.eql(
-            {
-              errors:
+          res.body.should.eql({
+            errors:
                 [
                   {
                     title: HTTPStatus.getStatusText(HTTPStatus.GATEWAY_TIMEOUT),
                     status: HTTPStatus.GATEWAY_TIMEOUT,
                   },
                 ],
-            }
-          );
+          });
           done();
         });
     });
   });
 });
-
-assertErrorResponseSpecificationInvalidURLNotFound = (res) => {
-  res.should.have.status(HTTPStatus.BAD_GATEWAY);
-  res.headers['content-type'].should.equal('application/vnd.api+json; charset=utf-8');
-  res.headers['content-language'].should.equal('en');
-  res.body.should.eql(
-    {
-      errors:
-        [
-          {
-            title: HTTPStatus.getStatusText(HTTPStatus.BAD_GATEWAY),
-            status: HTTPStatus.BAD_GATEWAY,
-          },
-        ],
-    }
-  );
-}
-
-

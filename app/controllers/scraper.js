@@ -25,7 +25,8 @@ const formatGatewayErr = (err) => {
     ? HTTPStatus.GATEWAY_TIMEOUT
     : HTTPStatus.BAD_GATEWAY;
 
-  const errorResponse = Object.assign(err,
+  const errorResponse = Object.assign(
+    err,
     {
       statusCode,
       message: HTTPStatus.getStatusText(statusCode),
