@@ -37,7 +37,7 @@
     "chai-http": "^4.0.0",
     "coveralls": "^2.13.1",
     "eslint": "^4.3.0",
-    "eslint-config-airbnb": "^15.0.2",
+    "eslint-config-airbnb": "^16.0.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
     "mocha": "^3.4.2",
