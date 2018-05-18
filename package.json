@@ -10,7 +10,7 @@
     "lint": "eslint ./app index.js ./test",
     "lint:fix": "eslint --fix ./app index.js ./test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "api-spec-generate": "bootprint openapi swagger.yml ./docs/api-spec/"
+    "api-spec-generate": "redoc-cli bundle --output swagger.html swagger.yml && mv swagger.html ./docs/api-spec/index.html"
   },
   "repository": {
     "type": "git",
@@ -32,8 +32,6 @@
     "validator": "^9.0.0"
   },
   "devDependencies": {
-    "bootprint": "^1.0.0",
-    "bootprint-openapi": "^1.0.1",
     "chai": "^4.1.0",
     "chai-http": "^4.0.0",
     "coveralls": "^3.0.0",
@@ -47,6 +45,7 @@
     "mocha": "^5.0.0",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.3",
+    "redoc-cli": "^0.3.9",
     "sinon": "^4.0.0"
   }
 }
