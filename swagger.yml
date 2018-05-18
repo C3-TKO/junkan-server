@@ -75,6 +75,8 @@ paths:
       description: Returns a screenshot of a website
       parameters:
         - $ref: '#/parameters/url'
+        - $ref: '#/parameters/width'
+        - $ref: '#/parameters/height'
       produces:
         - image/png
       responses:
@@ -126,6 +128,20 @@ parameters:
     required: true
     type: string
     description: Urlencoded URL of a website
+  width:
+    in: query
+    name: width
+    required: false
+    default: 1920
+    type: integer
+    description: Width of the viewport for the screenshot
+  height:
+    in: query
+    name: height
+    required: false
+    default: 1080
+    type: integer
+    description: Height of the viewport for the screenshot
 responses:
   400:
     description: Bad Request
