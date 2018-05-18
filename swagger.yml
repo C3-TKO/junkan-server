@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: |
     This is the api specification for the [junkan-server](https://github.com/C3-TKO/junkan-server).
-  version: 1.0.0
+  version: 1.1.0
   title: Junkan Server
   contact:
     email: thomas.kolar@gmail.com
@@ -59,6 +59,27 @@ paths:
             properties:
               data:
                 $ref: '#/definitions/code'
+        400:
+          $ref: '#/responses/400'
+        500:
+          $ref: '#/responses/500'
+        502:
+          $ref: '#/responses/502'
+        504:
+          $ref: '#/responses/504'
+  '/screenshot/{url}':
+    get:
+      tags:
+        - scraper
+      summary: Gets screenshot of a website
+      description: Returns a screenshot of a website
+      parameters:
+        - $ref: '#/parameters/url'
+      produces:
+        - image/png
+      responses:
+        200:
+          description: Screenshot operation successful
         400:
           $ref: '#/responses/400'
         500:
