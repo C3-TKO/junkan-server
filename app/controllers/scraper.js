@@ -2,6 +2,8 @@ const requestPromise = require('request-promise');
 const validator = require('validator');
 const HTTPStatus = require('http-status-codes');
 const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
+const fs = require('fs')
 
 const REQUEST_TIMEOUT = 200;
 
@@ -83,6 +85,29 @@ exports.get_html = (req, res, next) => {
       // Crawling failed...
       next(formatGatewayErr(err));
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+async function getPic(url) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setViewport({width: 1920, height: 1080});
+  await page.goto(url);
+  await page.screenshot({path: 'google.png'});
+
+  await browser.close();
+}
+
+exports.get_screenshot = (req, res, next) => {
+  try {
+    const url = validateURL(req);
+    getPic(url);
+
+    res.sendFile('google.png');
+
+
   } catch (err) {
     next(err);
   }

@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/title/:url', scraperController.get_title);
-
 router.get('/html/:url', scraperController.get_html);
+router.get('/screenshot/:url', scraperController.get_screenshot);
 
 module.exports = router;
