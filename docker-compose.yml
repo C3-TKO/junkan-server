@@ -6,3 +6,9 @@ services:
       - "80:80"
     volumes:
       - /www/public
+  renderer:
+    build: ./renderer/
+    ports:
+      - "300480:3000"
+      
+    command: nodemon -L app/bin/www

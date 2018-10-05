@@ -1,0 +1,6 @@
+{
+    "plugins": [
+        "mocha"
+      ],
+    "extends": "airbnb-base"
+}
