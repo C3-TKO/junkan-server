@@ -28,7 +28,7 @@
     "express": "latest",
     "http-status-codes": "^1.2.0",
     "request": "latest",
-    "request-promise": "^4.2.1",
+    "request-promise": "^4.2.5",
     "validator": "^9.0.0"
   },
   "devDependencies": {
